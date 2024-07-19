@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Product;
+use App\Models\Category_Product;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -10,6 +11,7 @@ use Illuminate\Http\Request;
 class ProductService{
     public function create(array $data)
     {
+        
         $validator = Validator::make($data, [
             'product_category_id' => 'required|integer',
             'name' => 'required|string|max:255',
@@ -18,12 +20,19 @@ class ProductService{
             'description' => 'nullable|string'
         ]);
 
+
+        $category = Category_Product::find($data['product_category_id']);
+        if (!$category) {
+            return ['status' => 'error', 'message' => 'Category not found'];
+        }
         if ($validator->fails()) {
             return [
                 'errors' => $validator->errors(),
                 'message' => 'Validation failed'
             ];
         }
+
+
 
         if (isset($data['image']) && $data['image']->isValid()) {
             $path = $data['image']->store('public/images');
@@ -57,6 +66,11 @@ class ProductService{
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'description' => 'nullable|string'
         ]);
+
+        $category = Category_Product::find($request['product_category_id']);
+        if (!$category) {
+            return ['status' => 'error', 'message' => 'Category not found'];
+        }
 
         if ($validator->fails()) {
             return [
