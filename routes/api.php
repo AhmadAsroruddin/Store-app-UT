@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryProductController;
+use App\Http\Controllers\ProductController;
 
 
 /*
@@ -25,5 +26,7 @@ Route::middleware(['custom.jwt.verify', 'jwt.verify'])->group(function () {
     Route::post('category-products', [CategoryProductController::class, 'store']);
     Route::put('category-products/{id}', [CategoryProductController::class, 'update']);
     Route::delete('category-products/{id}', [CategoryProductController::class, 'delete']);
+
+    Route::post('product', [ProductController::class,'store']);
 });
 
