@@ -28,5 +28,9 @@ Route::middleware(['custom.jwt.verify', 'jwt.verify'])->group(function () {
     Route::delete('category-products/{id}', [CategoryProductController::class, 'delete']);
 
     Route::post('product', [ProductController::class,'store']);
+    Route::get('product', [ProductController::class,'getAll']);
+    Route::get('product/{id}', [ProductController::class,'getById']);
+    Route::put('product/{id}', [ProductController::class, 'update']);
+    Route::delete('product/{id}', [ProductController::class, 'destroy']);
 });
 
