@@ -6,7 +6,7 @@ use App\Models\Category_Product;
 
 class CategoryProductService{
     public function addCategory($data){
-        return CategoryProduct::create($data);
+        return Category_Product::create($data);
     }
 
     public function getAll(){
@@ -14,12 +14,12 @@ class CategoryProductService{
     }
 
     public function getById($id){
-        return CategoryProduct::find($id);
+        return Category_Product::find($id);
     }
 
     public function update($id, $data)
     {
-        $category = CategoryProduct::find($id);
+        $category = Category_Product::find($id);
         if ($category) {
             $category->update($data);
         }
@@ -28,7 +28,7 @@ class CategoryProductService{
 
     public function delete($id)
     {
-        $category = CategoryProduct::find($id);
+        $category = Category_Product::find($id);
         if ($category) {
             $category->delete();
         }

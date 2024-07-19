@@ -19,7 +19,7 @@ use App\Http\Controllers\CategoryProductController;
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
-Route::middleware(['jwt.verify'])->group(function () {
+Route::middleware(['custom.jwt.verify', 'jwt.verify'])->group(function () {
     Route::get('category-products', [CategoryProductController::class, 'getAll']);
     Route::get('category-products/{id}', [CategoryProductController::class, 'getById']);
     Route::post('category-products', [CategoryProductController::class, 'store']);
