@@ -16,7 +16,6 @@ class AuthController extends Controller
         $this->authService = $authService;
     }
 
-
     public function register(Request $request){
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
@@ -37,4 +36,22 @@ class AuthController extends Controller
     
         return response()->json($result, 201);
     }
+
+    public function login(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+        $token = $this->authService->login($credentials);
+
+        if (!$token) {
+            return response()->json([
+                'message' => 'Invalid credentials'
+            ], 401);
+        }
+
+        return response()->json([
+            'token' => $token
+        ], 200);
+    }
+
+    
 }
